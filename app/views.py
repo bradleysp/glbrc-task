@@ -6,20 +6,18 @@ from .models import *
 @login_required
 def home(request):
     params = {}
-    if request.user.is_authenticated():
-        params['userapps'] = UserApps.objects.filter(user=request.user, status=True).order_by('app')
+    params['userapps'] = UserApps.objects.filter(user=request.user, status=True).order_by('app')
     return render(request, 'home.html', params)
 
 @login_required
 def edit_home(request):
     params = {}
-    if request.user.is_authenticated():
-          params['userapps'] = UserApps.objects.filter(user=request.user).order_by('app')
-          if request.method=='POST':
-              for ua in params['userapps']:
-                  appselected = request.POST.get(ua.app.name, False)
-                  ua.status = appselected
-                  ua.save()
-              return redirect('home')            
+    params['userapps'] = UserApps.objects.filter(user=request.user).order_by('app')
+    if request.method=='POST':
+        for ua in params['userapps']:
+            appselected = request.POST.get(ua.app.name, False)
+            ua.status = appselected
+            ua.save()
+        return redirect('home')            
     return render(request, 'edit_home.html', params)
 
