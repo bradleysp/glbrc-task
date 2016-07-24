@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+
+{%block content%}
+<div class='container '>
+<div class='row '>
+{%if userapps%}
+    {%for ua in userapps%}
+    <a href="#{{ua.app.name}}">
+        <div class='col-md-4'>
+            <div class='col-md-12 appfeature bg-{{ua.app.color}}'>
+                <div class='appname'>{{ua.app.name}}</div>
+                <div class='desc'>{{ua.app.description}}</div>
+            </div>
+       </div>
+    </a>
+    {%endfor%}
+{%endif%}
+</div>
+</div>
+{%endblock%}
